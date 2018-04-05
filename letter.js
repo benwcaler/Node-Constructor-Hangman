@@ -1,6 +1,4 @@
-var inquirer = require("inquirer");
-
-function Letter(char, guess) {
+function Letter(char) {
   this.char = char;
   this.guessed = false;
   this.toString = function() {
@@ -10,9 +8,11 @@ function Letter(char, guess) {
       console.log("_");
     }
   };
-  this.compare = function (guess) {
-    if (guess === char) {
+  this.compare = function(guess) {
+    if (guess === this.char) {
       this.guessed = true;
     }
-  }
+  };
 }
+
+module.exports = Letter
