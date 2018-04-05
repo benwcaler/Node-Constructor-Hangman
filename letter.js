@@ -3,8 +3,10 @@ function Letter(char) {
   this.guessed = false;
   this.toString = function() {
     if (this.guessed) {
+      return char
       console.log(char);
     } else {
+      return "_ "
       console.log("_");
     }
   };
@@ -15,4 +17,4 @@ function Letter(char) {
   };
 }
 
-module.exports = Letter
+module.exports = Letter;
