@@ -11,18 +11,24 @@ function Word(guessWord) {
   }
   this.string = function() {
     for (var i=0;i<this.letters.length;i++){
-      this.letters[i].compare();
       blanks.push(this.letters[i].toString());
+    }
+  }
+  this.guess = function (guess) {
+    for (var i=0;i<this.letters.length;i++) {
+      this.letters[i].compare(guess);
     }
   }
 }
 
 module.exports = Word;
-// var test = new Word("sandwich")
-// test.lettersArr()
+var test = new Word("moon")
+test.lettersArr()
 // // for (var i=0;i<test.letters.length;i++) {
 // // console.log(test.letters[i].char)
 // // }
-// test.string()
+test.guess("m")
 
-// console.log(blanks)
+test.guess("n")
+test.string()
+console.log(blanks.join("    "))
