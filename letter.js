@@ -4,10 +4,8 @@ function Letter(char) {
   this.toString = function() {
     if (this.guessed) {
       return char
-      console.log(char);
     } else {
-      return "_ "
-      console.log("_");
+      return "_"
     }
   };
   this.compare = function(guess) {
