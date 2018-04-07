@@ -19,9 +19,10 @@ function newWord() {
       gameWord = new word(result.body.word);
       gameWord.lettersArr();
       gameWord.string();
-      ask()
+      ask();
     });
 }
+
 function newGame() {
   inquirer
     .prompt([
@@ -32,24 +33,25 @@ function newGame() {
       }
     ])
     .then(function(response) {
+      player = response.name;
       newWord();
     });
 }
-function ask() {
-  inquirer.prompt([
-    {
-      type: "input",
-      message: "Enter your guess-   ",
-      name: "guess"
-    }
 
-    //word.letters[i].compare
-  ]).then(function(response) {
-    for (var i=0; i<gameWord.letters.length;i++) {
+function ask() {
+  var incorrect = 6;
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Enter your guess-   ",
+        name: "guess"
+      }
+    ])
+    .then(function(response) {
       gameWord.guess(response.guess);
-    }
-    gameWord.string()
-    ask();
-  });
+      gameWord.string();
+      ask();
+    });
 }
 newGame();
