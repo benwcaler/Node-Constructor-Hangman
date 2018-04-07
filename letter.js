@@ -3,9 +3,15 @@ function Letter(char) {
   this.guessed = false;
   this.toString = function() {
     if (this.guessed) {
-      return char
+      return char;
     } else {
-      return "_"
+      if (char === " ") {
+        return " ";
+      } else if (char === "-") {
+        return "-"
+      } else {
+        return "_";
+      }
     }
   };
   this.compare = function(guess) {
