@@ -9,7 +9,7 @@ var guessed = [];
 
 function newWord() {
   unirest
-    .get("https://wordsapiv1.p.mashape.com/words/?lettersMin=5&random=true")
+    .get("https://wordsapiv1.p.mashape.com/words/?lettersMin=6&random=true")
     .header(
       "X-Mashape-Key",
       "sEoyKbmq31mshPFYo9JMXnrNzDBCp1AnQFrjsnf17maAdDoTwO"
@@ -55,3 +55,6 @@ function ask() {
     });
 }
 newGame();
+//TODO determine if the guess was good or not. 
+//TODO determine if the word is complete
+//TODO move ask() call to if statement based on above.
