@@ -24,6 +24,7 @@ function Word(guessWord) {
   this.guess = function(guess) {
     for (var i = 0; i < this.letters.length; i++) {
       this.letters[i].compare(guess);
+      this.letters[i].toString()
     }
   };
 }

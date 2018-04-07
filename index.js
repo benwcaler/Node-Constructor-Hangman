@@ -1,7 +1,10 @@
 var unirest = require("unirest");
 var word = require("./word.js");
 var title = require("./title.js");
-var gameWord = "";
+var gameWord;
+var player;
+var score = 0;
+var guessed = [];
 
 function newWord() {
   unirest
@@ -12,10 +15,39 @@ function newWord() {
     )
     .header("X-Mashape-Host", "wordsapiv1.p.mashape.com")
     .end(function(result) {
-      var getWord = new word(result.body.word);
-      getWord.lettersArr();
-      getWord.string();
+      gameWord = new word(result.body.word);
+      gameWord.lettersArr();
     });
 }
+function newGame() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Enter name - ",
+        name: "name"
+      }
+    ])
+    .then(function(response) {
+      newWord();
+      gameWord.string();
+      ask()
+    });
+}
+function ask() {
+  inquirer.prompt([
+    {
+      type: "input",
+      message: "Enter you guess-   ",
+      name: "guess"
+    }
 
-newWord();
+    //word.letters[i].compare
+  ]).then(function(response) {
+    for (var i=0; i<word.letters.length;i++) {
+      word.guess(response.guess);
+      gameWord.string()
+    }
+  })
+}
+newGame()
