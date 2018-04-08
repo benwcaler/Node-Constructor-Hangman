@@ -7,8 +7,10 @@ function Letter(char) {
     } else {
       if (char === " ") {
         return " ";
+        this.guessed = true;
       } else if (char === "-") {
         return "-"
+        this.guessed = true;
       } else {
         return "_";
       }
