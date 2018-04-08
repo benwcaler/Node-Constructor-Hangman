@@ -20,11 +20,18 @@ function newWord() {
     .header("X-Mashape-Host", "wordsapiv1.p.mashape.com")
     .end(function(result) {
       incorrect = 6;
+      wordLetters = [];
+      deadLetters = [];
       gameWord = new word(result.body.word);
       gameWord.lettersArr();
       gameWord.string();
       for (var i = 0; i < gameWord.letters.length; i++) {
-        wordLetters.push(gameWord.letters[i].char);
+        if (
+          gameWord.letters[i].char !== " " &&
+          gameWord.letters[i].char !== "-"
+        ) {
+          wordLetters.push(gameWord.letters[i].char);
+        }
       }
       ask();
     });
@@ -49,7 +56,7 @@ function solvedWord(ltr) {
   var rmv = [];
   for (var i = 0; i < wordLetters.length; i++) {
     if (ltr === wordLetters[i]) {
-      rmv.push[i];
+      rmv.push(i);
     }
   }
   for (var i = rmv.length - 1; i > -1; i--) wordLetters.splice(rmv[i], 1);
@@ -67,8 +74,9 @@ function ask() {
     .then(function(response) {
       gameWord.guess(response.guess);
       gameWord.string();
-      solvedWord(response.guess);
       letterCheck(response.guess);
+      solvedWord(response.guess);
+      console.log(wordLetters.length + " " + incorrect);
       if (wordLetters.length > 0 && incorrect > 0) {
         ask();
       } else {
@@ -112,6 +120,3 @@ function letterCheck(ltr) {
 }
 
 newGame();
-//TODO determine if the guess was good or not.
-//TODO determine if the word is complete
-//TODO move ask() call to if statement based on above.
