@@ -5,7 +5,7 @@ var inquirer = require("inquirer");
 var gameWord;
 var player;
 var score = 0;
-var guesseded = [];
+var guessedLetters = [];
 var incorrect = 6;
 var wordLetters = [];
 var deadLetters = [];
@@ -72,11 +72,17 @@ function ask() {
       }
     ])
     .then(function(response) {
+      if (guessedLetters.includes(response.guess)){
+        console.log("You've already guessed that.");
+        ask();
+      } else {
+        guessedLetters.push(response.guess);
+      }
       gameWord.guess(response.guess);
+      console.log("     " + guessedLetters.sort().join(" "));
       gameWord.string();
       letterCheck(response.guess);
       solvedWord(response.guess);
-      console.log(wordLetters.length + " " + incorrect);
       if (wordLetters.length > 0 && incorrect > 0) {
         ask();
       } else {
@@ -110,13 +116,26 @@ function letterCheck(ltr) {
   for (var i = 0; i < wordLetters.length; i++) {
     if (ltr === wordLetters[i]) {
       contained = true;
-      return;
     }
   }
   if (!contained) {
     deadLetters.push(ltr);
     incorrect--;
+    if (score > 5) {
+      score -= 5;
+    }
+    console.log("\x1b[32m%s\x1b[0m", "    Incorrect!");
+  } else {
+    console.log("\x1b[32m%s\x1b[0m", "    Correct!");
+    score += 10;
   }
 }
 
 newGame();
+
+//TODO format output
+//TODO add letter graveyard display
+//TODO add scoring function
+//TODO add graphical hangman
+//TODO add title page with selections for instructions, high scores, new game
+//TODO add hint option

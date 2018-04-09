@@ -14,12 +14,17 @@ function Word(guessWord) {
     for (var i = 0; i < this.letters.length; i++) {
       blanks.push(this.letters[i].toString());
     }
-    console.log(blanks.join(" "));
+    console.log("\n===================================================================");
+    console.log("||                                                               ||");
+    console.log("||    " + blanks.join(" "));
+    console.log("||                                                               ||")
+    console.log("===================================================================\n");
   };
   this.guess = function(guess) {
     for (var i = 0; i < this.letters.length; i++) {
       this.letters[i].compare(guess);
       this.letters[i].toString()
+      
     }
   };
 }

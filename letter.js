@@ -12,7 +12,7 @@ function Letter(char) {
         return "-"
         this.guessed = true;
       } else {
-        return "_";
+        return "*";
       }
     }
   };
