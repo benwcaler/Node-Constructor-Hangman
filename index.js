@@ -1,6 +1,7 @@
 var unirest = require("unirest");
 var word = require("./word.js");
 var title = require("./title.js");
+var hang = require("./hang.js");
 var inquirer = require("inquirer");
 var gameWord;
 var player;
@@ -24,6 +25,7 @@ function newWord() {
       deadLetters = [];
       gameWord = new word(result.body.word);
       gameWord.lettersArr();
+      hang.gallows();
       gameWord.string();
       for (var i = 0; i < gameWord.letters.length; i++) {
         if (
@@ -72,26 +74,51 @@ function ask() {
       }
     ])
     .then(function(response) {
-      if (guessedLetters.includes(response.guess)){
+      if (guessedLetters.includes(response.guess)) {
         console.log("You've already guessed that.");
         ask();
+        return;
       } else {
         guessedLetters.push(response.guess);
       }
       gameWord.guess(response.guess);
-      console.log("     " + guessedLetters.sort().join(" "));
-      gameWord.string();
       letterCheck(response.guess);
+      switch (incorrect) {
+        case 6:
+          hang.gallows();
+          break;
+        case 5:
+          hang.head();
+          break;
+        case 4:
+          hang.body();
+          break;
+        case 3:
+          hang.arm1();
+          break;
+        case 2:
+          hang.arm2();
+          break;
+        case 1:
+          hang.leg1();
+          break;
+      }
+      console.log("\nDead letters:  " + guessedLetters.sort().join(" "));
+      gameWord.string();
       solvedWord(response.guess);
       if (wordLetters.length > 0 && incorrect > 0) {
         ask();
       } else {
+        console.log("You win!")
         gameOver();
       }
     });
 }
 
 function gameOver() {
+  if (incorrect===0) {
+    hang.leg2();
+  }
   inquirer
     .prompt([
       {
@@ -124,9 +151,7 @@ function letterCheck(ltr) {
     if (score > 5) {
       score -= 5;
     }
-    console.log("\x1b[32m%s\x1b[0m", "    Incorrect!");
   } else {
-    console.log("\x1b[32m%s\x1b[0m", "    Correct!");
     score += 10;
   }
 }
