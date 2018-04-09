@@ -74,12 +74,12 @@ function ask() {
       }
     ])
     .then(function(response) {
-      if (guessedLetters.includes(response.guess)) {
+      if (guessedLetters.includes(response.guess.toUpperCase())) {
         console.log("You've already guessed that.");
         ask();
         return;
       } else {
-        guessedLetters.push(response.guess);
+        guessedLetters.push(response.guess.toUpperCase());
       }
       gameWord.guess(response.guess);
       letterCheck(response.guess);

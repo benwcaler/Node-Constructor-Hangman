@@ -3,7 +3,7 @@ function Letter(char) {
   this.guessed = false;
   this.toString = function() {
     if (this.guessed) {
-      return char;
+      return char.toUpperCase();
     } else {
       if (char === " ") {
         return " ";
