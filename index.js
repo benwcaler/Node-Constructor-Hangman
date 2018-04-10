@@ -3,13 +3,14 @@ var word = require("./word.js");
 var title = require("./title.js");
 var hang = require("./hang.js");
 var inquirer = require("inquirer");
-var keypress = require("keypress");
+var fs = require("fs");
 var gameWord;
 var displayWord;
 var player;
 var score = 0;
 var guessedLetters = [];
 var incorrect = 6;
+var totalIncorrect = 30;
 var wordLetters = [];
 var deadLetters = [];
 
@@ -117,7 +118,7 @@ function ask() {
       console.log("\nDead letters:  " + guessedLetters.sort().join(" "));
       gameWord.string();
       solvedWord(response.guess);
-      if (wordLetters.length > 0 && incorrect > 0) {
+      if (wordLetters.length > 0 && incorrect > 0 && totalIncorrect > 0) {
         ask();
       } else {
         gameOver();
@@ -146,6 +147,7 @@ function gameOver() {
       if (response.again === "Yes") {
         newWord();
       } else {
+        writeScore();
         console.log("Good bye.");
         return;
       }
@@ -161,6 +163,7 @@ function letterCheck(ltr) {
   }
   if (!contained) {
     deadLetters.push(ltr);
+    totalIncorrect--;
     incorrect--;
     if (score > 5) {
       score -= 5;
@@ -171,18 +174,18 @@ function letterCheck(ltr) {
 }
 
 function hint() {
-  incorrect--
-  score -= 5
   console.log(displayWord);
   unirest.get("https://wordsapiv1.p.mashape.com/words/"+ displayWord +"/definitions")
   .header("X-Mashape-Key", "sEoyKbmq31mshPFYo9JMXnrNzDBCp1AnQFrjsnf17maAdDoTwO")
   .header("Accept", "application/json")
   .end(function (result) {
     if (result.body.definitions.length > 0) {
+      incorrect--
+      score -= 5
       console.log("   HINT: " + result.body.definitions[0].definition);
       ask();
     } else {
-      console.log("Ouch! Looks like the API thinks this word is too easy for a hint.");
+      console.log("Looks like the API gods think this word is too easy for a hint.");
       ask();
     }
   });
@@ -196,25 +199,38 @@ function display() {
   console.log("===================================================================\n");
 }
 
-function listen() {
-  keypress(process.stdin);
-  process.stdin.on('keypress', function (ch, key) {
-    if (key && key.name == "n") {
-      newGame();
-      process.stdin.pause();
-    } else if (key && key.name == "i") {
-        instruction();
-        process.stdin.pause();
-    } else if (key && key.name == "s") {
-        highScore();
-        process.stdin.pause();
-    }
-  });
+function writeScore() {
+  fs.appendFile("score.txt", player + " " + score, function(err) {
+    if (err) throw err;
+  }); 
 }
 
-title();
-listen();
+function selection() {
+  inquirer.prompt([
+    {
+      type: "input",
+      message: "Your selection: ",
+      name: "selection"
+    }
+  ]).then(function(response) {
+    var res = response.selection
+    if (res === "n") {
+      newGame();
+    } else if (res === "i") {
+      title.instructions();
+      selection();
+    } else if (res === "s") {
+      title.highScore();
+      // selection();
+    }
+  })
+}
+
+title.header();
+selection();
 
 
-//TODO add scoring function
-//TODO add title page with selections for instructions, high scores, new game
+//scoring is working
+//TODO make read/writeFile function parse out data in a readable format that can be pushed to object and called individually. 
+//TODO call appropriate functions to make sure game is running after different options are selected. 
+//TODO fix hint with incorrect = 1
