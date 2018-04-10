@@ -3,6 +3,7 @@ var word = require("./word.js");
 var title = require("./title.js");
 var hang = require("./hang.js");
 var inquirer = require("inquirer");
+var keypress = require("keypress");
 var gameWord;
 var displayWord;
 var player;
@@ -195,9 +196,25 @@ function display() {
   console.log("===================================================================\n");
 }
 
-newGame();
+function listen() {
+  keypress(process.stdin);
+  process.stdin.on('keypress', function (ch, key) {
+    if (key && key.name == "n") {
+      newGame();
+      process.stdin.pause();
+    } else if (key && key.name == "i") {
+        instruction();
+        process.stdin.pause();
+    } else if (key && key.name == "s") {
+        highScore();
+        process.stdin.pause();
+    }
+  });
+}
+
+title();
+listen();
 
 
 //TODO add scoring function
 //TODO add title page with selections for instructions, high scores, new game
-//TODO add hint option
