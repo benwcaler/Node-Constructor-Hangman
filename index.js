@@ -4,6 +4,7 @@ var title = require("./title.js");
 var hang = require("./hang.js");
 var inquirer = require("inquirer");
 var gameWord;
+var displayWord;
 var player;
 var score = 0;
 var guessedLetters = [];
@@ -23,6 +24,8 @@ function newWord() {
       incorrect = 6;
       wordLetters = [];
       deadLetters = [];
+      guessedLetters = [];
+      displayWord = result.body.word;
       gameWord = new word(result.body.word);
       gameWord.lettersArr();
       hang.gallows();
@@ -74,8 +77,15 @@ function ask() {
       }
     ])
     .then(function(response) {
-      if (guessedLetters.includes(response.guess.toUpperCase())) {
+      if (response.guess === "hint") {
+        hint();
+        return;
+      } else if (guessedLetters.includes(response.guess.toUpperCase())) {
         console.log("You've already guessed that.");
+        ask();
+        return;
+      } else if (response.guess.length > 1) {
+        console.log("Enter a single letter.");
         ask();
         return;
       } else {
@@ -109,15 +119,18 @@ function ask() {
       if (wordLetters.length > 0 && incorrect > 0) {
         ask();
       } else {
-        console.log("You win!")
         gameOver();
       }
     });
 }
 
 function gameOver() {
-  if (incorrect===0) {
+  if (incorrect === 0) {
     hang.leg2();
+    console.log("\x1b[31m%s\x1b[0m","\n     You lose!");
+    display();
+  } else {
+    console.log("\x1b[32m%s\x1b[0m","     You win!\n");
   }
   inquirer
     .prompt([
@@ -156,11 +169,35 @@ function letterCheck(ltr) {
   }
 }
 
+function hint() {
+  incorrect--
+  score -= 5
+  console.log(displayWord);
+  unirest.get("https://wordsapiv1.p.mashape.com/words/"+ displayWord +"/definitions")
+  .header("X-Mashape-Key", "sEoyKbmq31mshPFYo9JMXnrNzDBCp1AnQFrjsnf17maAdDoTwO")
+  .header("Accept", "application/json")
+  .end(function (result) {
+    if (result.body.definitions.length > 0) {
+      console.log("   HINT: " + result.body.definitions[0].definition);
+      ask();
+    } else {
+      console.log("Ouch! Looks like the API thinks this word is too easy for a hint.");
+      ask();
+    }
+  });
+}
+
+function display() {
+  console.log("\n===================================================================");
+  console.log("||                                                               ||");
+  console.log("\x1b[0m%s\x1b[31m%s\x1b[0m","||    ", "" + displayWord.split("").join(" ").toUpperCase());
+  console.log("||                                                               ||")
+  console.log("===================================================================\n");
+}
+
 newGame();
 
-//TODO format output
-//TODO add letter graveyard display
+
 //TODO add scoring function
-//TODO add graphical hangman
 //TODO add title page with selections for instructions, high scores, new game
 //TODO add hint option
