@@ -1,1 +1,3 @@
-Billy-bob 110Ben 160
+{"name": "Billy-bob", "score": 1000}
+{"name": "Ben", "score": 160}
+{"name": "Kleatus", "score": 235}

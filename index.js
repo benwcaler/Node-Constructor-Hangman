@@ -200,7 +200,7 @@ function display() {
 }
 
 function writeScore() {
-  fs.appendFile("score.txt", player + " " + score, function(err) {
+  fs.appendFile("score.txt", player + " " + score + "\n", function(err) {
     if (err) throw err;
   }); 
 }
@@ -218,10 +218,8 @@ function selection() {
       newGame();
     } else if (res === "i") {
       title.instructions();
-      selection();
     } else if (res === "s") {
       title.highScore();
-      // selection();
     }
   })
 }
@@ -229,8 +227,11 @@ function selection() {
 title.header();
 selection();
 
+module.exports = selection;
+
 
 //scoring is working
 //TODO make read/writeFile function parse out data in a readable format that can be pushed to object and called individually. 
 //TODO call appropriate functions to make sure game is running after different options are selected. 
 //TODO fix hint with incorrect = 1
+//TODO post-game menu selection. 
