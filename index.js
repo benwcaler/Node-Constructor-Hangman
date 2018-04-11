@@ -200,7 +200,7 @@ function display() {
 }
 
 function writeScore() {
-  fs.appendFile("score.txt", player + " " + score + "\n", function(err) {
+  fs.appendFile("score.txt", '{"name": "' + player + '", "score": ' + score + '}\n', function(err) {
     if (err) throw err;
   }); 
 }

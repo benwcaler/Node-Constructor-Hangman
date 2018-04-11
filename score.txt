@@ -1,3 +1,4 @@
-{"name": "Billy-bob", "score": 1000}
+{"name": "Billy-bob", "score": 125}
 {"name": "Ben", "score": 160}
 {"name": "Kleatus", "score": 235}
+{"name": "Nib", "score": 50}

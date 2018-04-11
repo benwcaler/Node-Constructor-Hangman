@@ -1,5 +1,4 @@
 var fs = require("fs");
-var selection = require("./index.js");
 
 var menu = {
   header: function() {
@@ -26,6 +25,7 @@ var menu = {
     console.log("\x1b[43m\x1b[34m%s\x1b[0m", "==========================================================================");
   },
   instructions: function() {
+    var selection = require("./index.js");
     console.log("\x1b[43m\x1b[34m%s\x1b[0m", "==========================================================================");
     console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                                                                      ||");
     console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                            Instructions:                             ||");
@@ -47,7 +47,7 @@ var menu = {
       var parsed = [];
       var arr = data.split("\n");
       if (err) throw err;
-      for (var i=0;i<arr.length; i++) {
+      for (var i=0;i<arr.length-1; i++) {
         parsed.push(JSON.parse(arr[i]));
       }
       var sorted = parsed.slice(0);
@@ -58,17 +58,28 @@ var menu = {
     })
   },
   printScore: function(arr) {
+    var selection = require("./index.js");
     console.log("\x1b[43m\x1b[34m%s\x1b[0m", "==========================================================================");
     console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                                                                      ||");
     console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                               HIGH SCORES                            ||");
     console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                                                                      ||");
     if (arr.length <= 10){
     for (var i=0;i<arr.length;i++) {
-    console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                   " + arr[i].name +"  ----------  " + arr[i].score);
+      var place = i+1
+      if (i<9){
+    console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                   " + place + ".  " + arr[i].name +"  ----------  " + arr[i].score);
+      } else{
+    console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                  " + place + ".  " + arr[i].name +"  ----------  " + arr[i].score);
+      }
     }
     } else {
     for (var i=0;i<10;i++) {
-    console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                   " + arr[i].name +"  ----------  " + arr[i].score);
+      var place = i+1
+      if (i<9) {
+    console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                   " + place + ".  " + arr[i].name +"  ----------  " + arr[i].score);
+      } else {
+    console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                  " + place + ".  " + arr[i].name +"  ----------  " + arr[i].score);
+      }
     }
     }
     console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                                                                      ||");
