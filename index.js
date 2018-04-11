@@ -79,6 +79,13 @@ function ask() {
       }
     ])
     .then(function(response) {
+      var isLtr = false;
+      function isLetter(x) {
+        if (x.match(/[a-z]/i)) {
+          isLtr = true;
+        }
+      }
+      isLetter(response.guess)
       if (response.guess === "hint") {
         if (incorrect > 1) {
           hint();
@@ -96,9 +103,13 @@ function ask() {
         console.log("Enter a single letter.");
         ask();
         return;
-      } else {
+      } else if (!isLtr) {
+        console.log("Enter a letter. ")
+        ask();
+        return;
+      } else {  
         guessedLetters.push(response.guess.toUpperCase());
-      }
+      } 
       gameWord.guess(response.guess);
       letterCheck(response.guess);
       switch (incorrect) {
@@ -121,7 +132,19 @@ function ask() {
           hang.leg1();
           break;
       }
-      console.log("\nDead letters:  " + guessedLetters.sort().join(" "));
+      var wrd = guessedLetters.sort().join(" ");
+      var nether = "";
+      function spaces() {
+        var num = 44-wrd.length;
+        for (var i = 0; i<num;i++) {
+          nether = nether + " ";
+        }
+      }
+      spaces()
+      console.log("\x1b[43m\x1b[35m%s\x1b[0m","===================================================================");
+      console.log("\x1b[43m\x1b[35m%s\x1b[0m","||                                                               ||");
+      console.log("\x1b[43m\x1b[35m%s\x1b[34m%s\x1b[31m%s\x1b[35m%s\x1b[0m","||    ","Dead letters:  ", "" + wrd + nether, "||");
+      console.log("\x1b[43m\x1b[35m%s\x1b[0m","||                                                               ||");
       gameWord.string();
       solvedWord(response.guess);
       if (wordLetters.length > 0 && incorrect > 0 && totalIncorrect > 0) {
@@ -135,10 +158,18 @@ function ask() {
 function gameOver() {
   if (incorrect === 0) {
     hang.leg2();
-    console.log("\x1b[31m%s\x1b[0m","\n     You lose!");
+    console.log("\x1b[43m\x1b[35m%s\x1b[0m","===================================================================");
+    console.log("\x1b[43m\x1b[35m%s\x1b[0m","||                                                               ||");
+    console.log("\x1b[43m\x1b[35m%s\x1b[31m%s\x1b[35m%s\x1b[0m","||    ","You lose!","                                                  ||");
+    console.log("\x1b[43m\x1b[35m%s\x1b[0m","||                                                               ||");
+    // console.log("\x1b[43m\x1b[35m%s\x1b[0m","\x1b[31m%s\x1b[0m","        You lose!");
     display();
   } else {
-    console.log("\x1b[32m%s\x1b[0m","     You win!\n");
+    console.log("\x1b[43m\x1b[35m%s\x1b[0m","===================================================================");
+    console.log("\x1b[43m\x1b[35m%s\x1b[0m","||                                                               ||");
+    console.log("\x1b[43m\x1b[35m%s\x1b[31m%s\x1b[35m%s\x1b[0m","||    ","You win !","                                                  ||");
+    console.log("\x1b[43m\x1b[35m%s\x1b[0m","||                                                               ||");
+    // console.log("\x1b[32m%s\x1b[0m","        You win!\n");
   }
   inquirer
     .prompt([
@@ -197,20 +228,20 @@ function hint() {
 }
 
 function display() {
-  var wrd = "" + displayWord.split("").join(" ").toUpperCase()
+  var wrd = "" + displayWord.split("").join(" ").toUpperCase();
   var nether = "";
   function spaces() {
-    var num = 58-wrd.length;
+    var num = 59-wrd.length;
     for (var i = 0; i<num;i++) {
       nether = nether + " ";
     }
   }
   spaces()
-  console.log("\n===================================================================");
-  console.log("||                                                               ||");
-  console.log("\x1b[0m%s\x1b[31m%s\x1b[0m","||    ", wrd + nether, "||");
-  console.log("||                                                               ||")
-  console.log("===================================================================\n");
+  console.log("\x1b[43m\x1b[35m%s\x1b[0m","===================================================================");
+  console.log("\x1b[43m\x1b[35m%s\x1b[0m","||                                                               ||");
+  console.log("\x1b[43m\x1b[35m%s\x1b[31m%s\x1b[35m%s\x1b[0m","||    ", "" + wrd + nether, "||");
+  console.log("\x1b[43m\x1b[35m%s\x1b[0m","||                                                               ||")
+  console.log("\x1b[43m\x1b[35m%s\x1b[0m","===================================================================","\n");
 }
 
 function writeScore() {
@@ -234,6 +265,9 @@ function selection() {
       title.instructions();
     } else if (res === "s") {
       title.highScore();
+    } else {
+      console.log("Select a valid option.");
+      selection();
     }
   })
 }
@@ -242,3 +276,5 @@ title.header();
 selection();
 
 module.exports = selection; 
+
+//TODO fix "enter" entry on selection

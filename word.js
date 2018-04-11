@@ -22,11 +22,12 @@ function Word(guessWord) {
       }
     }
     spaces()
-    console.log("\n===================================================================");
-    console.log("||                                                               ||");
-    console.log("||    " + wrd + nether + "||");
-    console.log("||                                                               ||")
-    console.log("===================================================================\n");
+    console.log("\x1b[43m\x1b[35m%s\x1b[0m","===================================================================");
+    console.log("\x1b[43m\x1b[35m%s\x1b[0m","||                                                               ||");
+    
+    console.log("\x1b[43m\x1b[35m%s\x1b[34m%s\x1b[35m%s\x1b[0m","||    ", "" + wrd + nether, "||");
+    console.log("\x1b[43m\x1b[35m%s\x1b[0m","||                                                               ||");
+    console.log("\x1b[43m\x1b[35m%s\x1b[0m","===================================================================","\n");
   };
   this.guess = function(guess) {
     for (var i = 0; i < this.letters.length; i++) {
