@@ -80,8 +80,14 @@ function ask() {
     ])
     .then(function(response) {
       if (response.guess === "hint") {
-        hint();
-        return;
+        if (incorrect > 1) {
+          hint();
+          return;
+        } else {
+          console.log("A hint now will end the game. Guess a letter.")
+          ask();
+          return;
+        }
       } else if (guessedLetters.includes(response.guess.toUpperCase())) {
         console.log("You've already guessed that.");
         ask();
@@ -174,7 +180,6 @@ function letterCheck(ltr) {
 }
 
 function hint() {
-  console.log(displayWord);
   unirest.get("https://wordsapiv1.p.mashape.com/words/"+ displayWord +"/definitions")
   .header("X-Mashape-Key", "sEoyKbmq31mshPFYo9JMXnrNzDBCp1AnQFrjsnf17maAdDoTwO")
   .header("Accept", "application/json")
@@ -182,7 +187,7 @@ function hint() {
     if (result.body.definitions.length > 0) {
       incorrect--
       score -= 5
-      console.log("   HINT: " + result.body.definitions[0].definition);
+      console.log(" HINT: " + result.body.definitions[0].definition);
       ask();
     } else {
       console.log("Looks like the API gods think this word is too easy for a hint.");
@@ -229,9 +234,5 @@ selection();
 
 module.exports = selection;
 
-
-//scoring is working
-//TODO make read/writeFile function parse out data in a readable format that can be pushed to object and called individually. 
-//TODO call appropriate functions to make sure game is running after different options are selected. 
-//TODO fix hint with incorrect = 1
+//TODO black space after strings in scores and word
 //TODO post-game menu selection. 

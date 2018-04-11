@@ -66,19 +66,33 @@ var menu = {
     if (arr.length <= 10){
     for (var i=0;i<arr.length;i++) {
       var place = i+1
+      var s = "||                   " + place + "-  " + arr[i].name +"  ----------  " + arr[i].score;
+      var l = "||                  " + place + "-  " + arr[i].name +"  ----------  " + arr[i].score;
+      var nether = "";
+      function spaces(x) {
+        num = 72-x.length;
+        for (var i = 0; i<num;i++) {
+          nether = nether + " ";
+        }
+      }
       if (i<9){
-    console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                   " + place + ".  " + arr[i].name +"  ----------  " + arr[i].score);
+        spaces(s)
+    console.log("\x1b[43m\x1b[34m%s\x1b[0m", s + nether + "||");
       } else{
-    console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                  " + place + ".  " + arr[i].name +"  ----------  " + arr[i].score);
+        spaces(l)
+    console.log("\x1b[43m\x1b[34m%s\x1b[0m", l + nether + "||");
       }
     }
     } else {
     for (var i=0;i<10;i++) {
       var place = i+1
+      var s = "||                   " + place + "-  " + arr[i].name +"  ----------  " + arr[i].score;
+      var l = "||                  " + place + "-  " + arr[i].name +"  ----------  " + arr[i].score;
+
       if (i<9) {
-    console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                   " + place + ".  " + arr[i].name +"  ----------  " + arr[i].score);
+    console.log("\x1b[43m\x1b[34m%s\x1b[0m", s);
       } else {
-    console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                  " + place + ".  " + arr[i].name +"  ----------  " + arr[i].score);
+    console.log("\x1b[43m\x1b[34m%s\x1b[0m", l);
       }
     }
     }
@@ -86,7 +100,7 @@ var menu = {
     console.log("\x1b[43m\x1b[34m%s\x1b[0m", "||                                                                      ||");
     console.log("\x1b[43m\x1b[34m%s\x1b[0m", "==========================================================================");
     selection();
-  }
+  },
 }
 
 module.exports = menu;
