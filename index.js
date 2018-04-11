@@ -241,6 +241,4 @@ function selection() {
 title.header();
 selection();
 
-module.exports = selection;
-
-//TODO post-game menu selection. 
+module.exports = selection; 
