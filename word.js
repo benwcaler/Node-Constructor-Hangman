@@ -10,13 +10,21 @@ function Word(guessWord) {
   };
   this.string = function() {
     var blanks = [];
-
+    var nether = "";
     for (var i = 0; i < this.letters.length; i++) {
       blanks.push(this.letters[i].toString());
     }
+    var wrd = blanks.join(" ")
+    function spaces() {
+      num = 59-wrd.length;
+      for (var i = 0; i<num;i++) {
+        nether = nether + " ";
+      }
+    }
+    spaces()
     console.log("\n===================================================================");
     console.log("||                                                               ||");
-    console.log("||    " + blanks.join(" "));
+    console.log("||    " + wrd + nether + "||");
     console.log("||                                                               ||")
     console.log("===================================================================\n");
   };
