@@ -16,7 +16,7 @@ function Word(guessWord) {
     }
     var wrd = blanks.join(" ")
     function spaces() {
-      num = 59-wrd.length;
+      var num = 59-wrd.length;
       for (var i = 0; i<num;i++) {
         nether = nether + " ";
       }

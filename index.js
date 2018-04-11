@@ -200,7 +200,7 @@ function display() {
   var wrd = "" + displayWord.split("").join(" ").toUpperCase()
   var nether = "";
   function spaces() {
-    num = 59-wrd.length;
+    var num = 58-wrd.length;
     for (var i = 0; i<num;i++) {
       nether = nether + " ";
     }
@@ -208,7 +208,7 @@ function display() {
   spaces()
   console.log("\n===================================================================");
   console.log("||                                                               ||");
-  console.log("\x1b[0m%s\x1b[31m%s\x1b[0m","||    ", + wrd + nether + "||");
+  console.log("\x1b[0m%s\x1b[31m%s\x1b[0m","||    ", wrd + nether, "||");
   console.log("||                                                               ||")
   console.log("===================================================================\n");
 }
@@ -243,5 +243,4 @@ selection();
 
 module.exports = selection;
 
-//TODO black space after strings in scores and word
 //TODO post-game menu selection. 
