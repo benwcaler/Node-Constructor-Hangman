@@ -2,3 +2,6 @@
 {"name": "Ben", "score": 160}
 {"name": "Kleatus", "score": 235}
 {"name": "Nib", "score": 50}
+{"name": "keith", "score": 55}
+{"name": "Corbin", "score": 55}
+{"name": "rob", "score": 40}
