@@ -43,6 +43,8 @@ This project was seriously fun to make. It was a ***ton*** of work but the finis
 
 Biggest challenge by far was setting up the GUI with the different colors, the flashing elements, and making sure all the characters lined up and stayed lined up when the previous number of characters in that line changed. In order to do that I setup a function to count characters and fill the remainder of the line with spaces. Actually wasn't too difficult, but still required a lot of trial and error. 
 
+---
+
 ### 4-Issues :question::exclamation:
 
 There is an issue I need to address in the way the GUI displays the "You win!" dialogue.  
@@ -54,6 +56,8 @@ If you find any issues please submit it using the issues tab, or contact [Ben Ca
 ### 5-Desired Features :star2:
 
 As this is not a distributed app and only meant as a fun project to display knowledge/skills, I will likely not implement any other features. 
+
+---
 
 ### 6-Contributors :raised_hands:
 
