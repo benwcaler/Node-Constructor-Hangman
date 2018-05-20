@@ -27,7 +27,7 @@ This project was seriously fun to make. It was a ***ton*** of work but the finis
 ---
 
 
-### 2-Technologies  :computer:
+### 2-Technologies :computer:
 
   This project utilizes the following technologies:
 
