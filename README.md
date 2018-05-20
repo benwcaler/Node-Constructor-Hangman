@@ -8,12 +8,12 @@
 
   
 
-### [Description](#1-description-page_facing_up)
-### [Technologies](#2-technologies-computer)
-### [Challenges](#3-challenges-screamboom)
-### [Issues](#4-issues-questionexclamation)
-### [Desired Features](#5-desired-features-star2)
-### [Contributors](#6-contributors-raised_hands)
+### -[Description](#1-description-page_facing_up)
+### -[Technologies](#2-technologies-computer)
+### -[Challenges](#3-challenges-screamboom)
+### -[Issues](#4-issues-questionexclamation)
+### -[Desired Features](#5-desired-features-star2)
+### -[Contributors](#6-contributors-raised_hands)
 
  ---
 
