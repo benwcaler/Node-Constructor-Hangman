@@ -21,7 +21,7 @@
 
 This project was seriously fun to make. It was a ***ton*** of work but the finished product was definitely worth it. I used this project to demonstrate my understanding of constructor functions and implemented them into a NodeJS version of hangman complete with GUI. To take it a step further, the words for the game are selected randomly through an API. I hope you like it!
 
-![Book image](https://gph.is/2wVYQQ1)
+![Book image](https://github.com/benwcaler/githubassets/blob/master/images/constructorHangman.gif)
 
 
 ---
