@@ -1,0 +1,17 @@
+{
+  "name": "node-constructor-hangman-master",
+  "version": "1.0.0",
+  "description": "<!-- This is a basic template for ReadMe files -->",
+  "main": "index.js",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "inquirer": "^6.2.1",
+    "unirest": "^0.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
